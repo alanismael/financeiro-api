@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.assertj.core.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
