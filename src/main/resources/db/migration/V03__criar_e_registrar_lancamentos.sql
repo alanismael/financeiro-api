@@ -1,24 +1,24 @@
-CREATE TABLE IF NOT EXISTS `financeiro`.`lancamento` (
-  `codigo` BIGINT(20) NOT NULL AUTO_INCREMENT,
-  `descricao` VARCHAR(50) NOT NULL,
-  `data_vencimento` DATE NOT NULL,
-  `data_pagamento` DATE NULL,
-  `valor` DECIMAL(10,2) NOT NULL,
-  `observacao` VARCHAR(100) NULL,
-  `tipo` VARCHAR(20) NOT NULL,
-  `pessoa` BIGINT(20) NOT NULL,
-  `categoria` BIGINT(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS lancamento (
+  codigo BIGINT(20) NOT NULL AUTO_INCREMENT,
+  descricao VARCHAR(50) NOT NULL,
+  data_vencimento DATE NOT NULL,
+  data_pagamento DATE NULL,
+  valor DECIMAL(10,2) NOT NULL,
+  observacao VARCHAR(100) NULL,
+  tipo VARCHAR(20) NOT NULL,
+  pessoa BIGINT(20) NOT NULL,
+  categoria BIGINT(20) NOT NULL,
   PRIMARY KEY (`codigo`),
   INDEX `fk_lancamento_pessoa_idx` (`pessoa` ASC),
   INDEX `fk_lancamento_categoria1_idx` (`categoria` ASC),
   CONSTRAINT `fk_lancamento_pessoa`
     FOREIGN KEY (`pessoa`)
-    REFERENCES `financeiro`.`pessoa` (`codigo`)
+    REFERENCES pessoa (`codigo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_lancamento_categoria1`
     FOREIGN KEY (`categoria`)
-    REFERENCES `financeiro`.`categoria` (`codigo`)
+    REFERENCES categoria (`codigo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

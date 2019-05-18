@@ -1,14 +1,14 @@
-CREATE TABLE IF NOT EXISTS `financeiro`.`pessoa` (
-  `codigo` BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
-  `nome` VARCHAR(100) NOT NULL,
-  `ativo` TINYINT(1) NOT NULL,
-  `logradouro` VARCHAR(50) NULL,
-  `numero` VARCHAR(5) NULL,
-  `complemento` VARCHAR(5) NULL,
-  `bairro` VARCHAR(50) NULL,
-  `cep` VARCHAR(9) NULL,
-  `cidade` VARCHAR(50) NULL,
-  `estado` VARCHAR(2) NULL)
+CREATE TABLE IF NOT EXISTS pessoa (
+  codigo BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(100) NOT NULL,
+  ativo TINYINT(1) NOT NULL,
+  logradouro VARCHAR(50) NULL,
+  numero VARCHAR(5) NULL,
+  complemento VARCHAR(5) NULL,
+  bairro VARCHAR(50) NULL,
+  cep VARCHAR(9) NULL,
+  cidade VARCHAR(50) NULL,
+  estado VARCHAR(2) NULL)
 ENGINE = InnoDB default CHARSET = utf8;
 
 insert into pessoa (nome, ativo, logradouro, numero, complemento, bairro, cep, cidade, estado) values ('Alan Ismael', true, 'Al. Pastos Bons', '31', 'A', 'Jardim Tropical', '65110-000', 'São José de Ribamar', 'MA');

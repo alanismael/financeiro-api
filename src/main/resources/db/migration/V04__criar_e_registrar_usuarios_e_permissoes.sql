@@ -1,30 +1,30 @@
-CREATE TABLE IF NOT EXISTS `financeiro`.`usuario` (
-  `codigo` BIGINT(20) NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(50) NOT NULL,
-  `email` VARCHAR(50) NOT NULL,
-  `senha` VARCHAR(150) NOT NULL,
+CREATE TABLE IF NOT EXISTS usuario (
+  codigo BIGINT(20) NOT NULL AUTO_INCREMENT,
+  nome VARCHAR(50) NOT NULL,
+  email VARCHAR(50) NOT NULL,
+  senha VARCHAR(150) NOT NULL,
   PRIMARY KEY (`codigo`))
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `financeiro`.`permissao` (
-  `codigo` BIGINT(20) NOT NULL AUTO_INCREMENT,
-  `descricao` VARCHAR(50) NOT NULL,
+CREATE TABLE IF NOT EXISTS permissao (
+  codigo BIGINT(20) NOT NULL AUTO_INCREMENT,
+  descricao VARCHAR(50) NOT NULL,
   PRIMARY KEY (`codigo`))
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `financeiro`.`usuario_permissao` (
-  `usuario_codigo` BIGINT(20) NOT NULL,
-  `permissao_codigo` BIGINT(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS usuario_permissao (
+  usuario_codigo BIGINT(20) NOT NULL,
+  permissao_codigo BIGINT(20) NOT NULL,
   PRIMARY KEY (`usuario_codigo`, `permissao_codigo`),
   INDEX `fk_usuario_permissao_permissao1_idx` (`permissao_codigo` ASC),
   CONSTRAINT `fk_usuario_permissao_usuario1`
     FOREIGN KEY (`usuario_codigo`)
-    REFERENCES `financeiro`.`usuario` (`codigo`)
+    REFERENCES usuario (`codigo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_usuario_permissao_permissao1`
     FOREIGN KEY (`permissao_codigo`)
-    REFERENCES `financeiro`.`permissao` (`codigo`)
+    REFERENCES permissao (`codigo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
