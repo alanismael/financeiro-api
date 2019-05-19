@@ -34,8 +34,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 	}
 	
-	@Bean
-	public PasswordEncoder passwordEncoder() {
+	private PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 	
