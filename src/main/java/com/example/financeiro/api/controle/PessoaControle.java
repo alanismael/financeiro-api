@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,9 +26,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.financeiro.api.controle.evento.RecursoCriadoEvent;
 import com.example.financeiro.api.modelo.Pessoa;
-import com.example.financeiro.api.modelo.Pessoa;
 import com.example.financeiro.api.repositorio.PessoaRepositorio;
-import com.example.financeiro.api.servico.PessoaServico;
+import com.example.financeiro.api.repositorio.filtro.LancamentoFiltro;
+import com.example.financeiro.api.repositorio.filtro.PessoaFiltro;
 import com.example.financeiro.api.servico.PessoaServico;
 
 @RestController
@@ -51,7 +53,7 @@ public class PessoaControle {
 
         return  ResponseEntity.status(HttpStatus.CREATED).body(pessoaSalva);
     }
-	
+	/*
 	@GetMapping
 	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_PESSOA') and #oauth2.hasScope('read')")
     public ResponseEntity<?> buscaTodos() {
@@ -62,6 +64,18 @@ public class PessoaControle {
         } else {
             return ResponseEntity.ok(pessoas);
         }
+    }
+	*/
+	@GetMapping
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_PESSOA') and #oauth2.hasScope('read')")
+    public List<Pessoa> pesquisar(PessoaFiltro filtro) {
+        return pessoaServico.pesquisa(filtro);
+    }
+	
+	@GetMapping("/paginacao")
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_PESSOA') and #oauth2.hasScope('read')")
+    public Page<Pessoa> pesquisarComPaginacao(PessoaFiltro filtro, Pageable pageable) {
+        return pessoaServico.pesquisa(filtro, pageable);
     }
 	
 	@GetMapping("/{codigo}")

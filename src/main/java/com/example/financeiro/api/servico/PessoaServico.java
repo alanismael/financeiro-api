@@ -6,11 +6,16 @@ import java.util.Optional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.financeiro.api.modelo.Lancamento;
 import com.example.financeiro.api.modelo.Pessoa;
 import com.example.financeiro.api.repositorio.PessoaRepositorio;
+import com.example.financeiro.api.repositorio.filtro.LancamentoFiltro;
+import com.example.financeiro.api.repositorio.filtro.PessoaFiltro;
 import com.example.financeiro.api.servico.excecao.PessoaInexistenteOuInativaException;
 
 @Service
@@ -41,9 +46,17 @@ public class PessoaServico {
 
     @Transactional(readOnly = true)
     public List<Pessoa> buscaTodos() {
-        return this.pessoaRepositorio.findAll();
+        return this.pessoaRepositorio.findAll();        
     }
-
+    
+    public List<Pessoa> pesquisa(PessoaFiltro filtro) {
+        return pessoaRepositorio.filtrar(filtro);
+    }
+    
+    public Page<Pessoa> pesquisa(PessoaFiltro filtro, Pageable pageable) {
+        return pessoaRepositorio.filtrar(filtro, pageable);
+    }
+    
     @Transactional
     public void excluir(Long codigo) {
         this.pessoaRepositorio.deleteById(codigo);
