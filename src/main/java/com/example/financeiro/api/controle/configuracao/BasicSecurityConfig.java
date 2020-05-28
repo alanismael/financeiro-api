@@ -7,16 +7,17 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 
-
-@Configuration
 @Profile("basic-security")
+@Configuration
 @EnableWebSecurity
 public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 	
@@ -31,7 +32,7 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 	private PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+	/*
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
@@ -42,4 +43,19 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 			.csrf().disable();			
 	}
+	*/
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests()
+			.anyRequest().authenticated().and()
+			.httpBasic().and()
+			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+			.csrf().disable();			
+	}
+	/*
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+	    web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
+	}
+	*/
 }
